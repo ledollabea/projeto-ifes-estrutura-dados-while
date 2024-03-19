@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Busca Sequencial</title>
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 20em;
+        margin: 10em auto;
+      }
+    </style>
+    <script>
+      function buscarSequencial(event) {
+        event.preventDefault();
+        var tamanho = Number(document.getElementById("vetorInput").value);
+        var vetor = [];
+        vetor.length = tamanho;
+        let numBuscado = Number(document.getElementById("numeroInput").value);
+        vetor[0] = 0;
+        for (let i = 0; i < tamanho; i++) {
+          vetor[i] = i + 1;
+        }
+
+        let encontrado = false;
+        while (!encontrado) {
+          console.log(vetor);
+          if (numBuscado < Math.floor(vetor.length / 2)) {
+            vetor = vetor.splice(0, Math.floor(vetor.length / 2));
+            console.log("primeiro if: " + vetor);
+          } else if (numBuscado > vetor[Math.floor(vetor.length / 2)]) {
+            vetor = vetor.splice(
+              Math.floor(vetor.length / 2),
+              vetor[Math.floor(vetor.length / 2)]
+            );
+            console.log("segundo if: " + vetor);
+            console.log(
+              " length " +
+                vetor.length +
+                " metade " +
+                Math.floor(vetor.length / 2)
+            );
+          } else {
+            alert(
+              "O numero " +
+                numBuscado +
+                " foi encontrado na posição " +
+                (numBuscado - 1)
+            );
+            encontrado = true;
+            break;
+          }
+        }
+        if (!encontrado)
+          alert("O numero " + numBuscado + " não foi encontrado");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Busca sequencial</h1>
+    <form onsubmit="buscarSequencial(event)">
+      <input
+        type="text"
+        placeholder="Digite o numero de posições do vetor"
+        id="vetorInput"
+      />
+      <input
+        type="text"
+        placeholder="Digite o numero que quer procurar"
+        id="numeroInput"
+      />
+      <button type="submit">Executar função</button>
+    </form>
+  </body>
+</html>
